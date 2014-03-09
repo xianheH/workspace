@@ -12,6 +12,10 @@ angular.module('webApp', [
         templateUrl: 'modules/LeagueOfLegend/main.html',
         controller: 'MainCtrl'
       })
+      .when('/champion', {
+        templateUrl: 'modules/LeagueOfLegend/champion.html',
+        controller: 'ChampionCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
