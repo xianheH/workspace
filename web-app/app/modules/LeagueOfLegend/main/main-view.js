@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('webApp')
-  .directive('navView', function () {
+  .directive('mainView', function () {
     return {
-      templateUrl: 'modules/LeagueOfLegend/main.html',
       restrict: 'AE',
+      templateUrl: 'modules/LeagueOfLegend/main/main-view.html',
       link: function postLink(scope, element, attrs) {
-        element.text('this is the navView directive');
       }
     };
   });

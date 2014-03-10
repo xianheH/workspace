@@ -6,3 +6,8 @@
 .navbar {
 	margin-top: -20px;
 }
+
+.floated_img
+{
+    float: left;
+}

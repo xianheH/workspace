@@ -25,22 +25,8 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <link rel = "stylesheet" href="modules/LeagueOfLegend/main.css">
+    <link rel = "stylesheet" href="modules/LeagueOfLegend/main/main.css">
     <nav-view>
-      <nav class="navbar navbar-default">
-        <div class="container">
-         <div class="navbar-header">
-          <a class="navbar-brand" href="/">League of Legend Team Build</a>
-        </div>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="#">Team build</a></li>
-          <li><a ng-href="#">Players</a></li>
-          <li><a ng-href="#champion">Champion</a></li>
-        </ul>
-      </div>
-      </nav>
     </nav-view>
     <div class="container" ng-view=""></div>
 
@@ -76,8 +62,11 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="modules/LeagueOfLegend/main.js"></script>
-        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="modules/LeagueOfLegend/main/main.js"></script>
+        <script src="modules/LeagueOfLegend/main/main-view.js"></script>
+        <script src="modules/LeagueOfLegend/navigation/nav-view.js"></script>
+        <script src="modules/LeagueOfLegend/champion/champion.js"></script>
+        <!--<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>-->
         <!-- endbuild -->
 </body>
 </html>
