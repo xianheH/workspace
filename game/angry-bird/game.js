@@ -7,6 +7,7 @@ var gameBoard = new GameBoard;
 var height;
 var drop;
 var increaseScore;
+var pipeNumber = 0;
 
 $(document).ready(function() {
     $('body').keydown(keyPresseHandler);
@@ -39,11 +40,20 @@ function startGame() {
 }
 
 function endGame() {
+	gameBoard.createPipe("pipe"+pipeNumber, "pipeTop", "pipe");
+	pipeNumber++;
+	gameBoard.createPipe("pipe"+pipeNumber, "pipeBottom", "pipe1");
 	gameBoard.clearBoard();
 	gameBoard.clearGameInfo();
 };
 
 function GameBoard() {
+
+	this.createPipe = function(className, idName, image){
+		$pipe = $('<div/>').addClass(className);
+		$pipe.prepend('<img id=' + idName +' src=' + image + '.png />');
+		$('#gameField').append($pipe);
+	};
 	
 	this.clearBoard = function(){
 		$('div.bird').remove();
@@ -81,7 +91,7 @@ function GameBoard() {
 function Bird() {
 	var $bird;
 	$bird = $('<div/>').addClass('bird');
-	$bird.prepend('<img id="bird" src="http://www.google.com/intl/en_com/images/logo_plain.png" />');
+	$bird.prepend('<img id="bird" src="teemo.jpg" />');
 	$('#gameField').append($bird);
 	$('#bird').css('position', 'absolute');
 	$('#bird').css('top', height+'px');
