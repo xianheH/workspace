@@ -4,10 +4,10 @@ var SPACE = 32;
 var S = 83;
 var bird;
 var gameBoard = new GameBoard;
-var height;
-var drop;
+var gameEvent;
 var increaseScore;
 var pipeNumber = 0;
+var pipeArray = new Array(); 
 
 $(document).ready(function() {
     $('body').keydown(keyPresseHandler);
@@ -31,18 +31,30 @@ function keyPresseHandler(event) {
 function startGame() {
 	endGame();
 	bird = new Bird();
-	drop = setInterval(function(){
-		bird.moveDown()
-	}, 1000);
-	increaseScore = setInterval(function(){
-  		gameBoard.updateScore();
+	spawn();
+	gameEvent = setInterval(function(){
+		bird.moveDown();
+		gameBoard.updateScore();
+		gameBoard.pipeMove();
 	}, 1000);
 }
 
-function endGame() {
-	gameBoard.createPipe("pipe"+pipeNumber, "pipeTop", "pipe");
+function spawn() { 
+	var pipeName ='pipe'+pipeNumber;
+	gameBoard.createPipe(pipeName, pipeName, "pipe");
+	var topPipeHeight = Math.floor((Math.random()*300)+1);
+	gameBoard.pipeSetting(pipeName, 400-topPipeHeight, topPipeHeight, 322, 78);
+	pipeArray[pipeArray.length] = pipeNumber;
 	pipeNumber++;
-	gameBoard.createPipe("pipe"+pipeNumber, "pipeBottom", "pipe1");
+	pipeName ='pipe'+pipeNumber;
+	gameBoard.createPipe(pipeName, pipeName, "pipe1");
+	var bottomPipeHeight = 320 - topPipeHeight;
+	gameBoard.pipeSetting(pipeName, 0, bottomPipeHeight, 322, 78);
+	pipeArray[pipeArray.length] = pipeNumber;
+	pipeNumber++;
+}
+
+function endGame() {
 	gameBoard.clearBoard();
 	gameBoard.clearGameInfo();
 };
@@ -55,8 +67,44 @@ function GameBoard() {
 		$('#gameField').append($pipe);
 	};
 	
+	this.pipeSetting = function (idname, top, height, left, width) {
+		$('#'+idname).css('position', 'absolute');
+		$('#'+idname).css('top', top+'px');
+		$('#'+idname).css('height', height+'px');
+		$('#'+idname).css('width', width+'px');
+		$('#'+idname).css('left', left+'px');
+	};
+
+	this.pipeMove = function () {
+		var canSpawn = true;
+		var idname, distanceLeft;
+		for (var i = 0; i < pipeArray.length; i++) {
+			idname ='pipe' + pipeArray[i];
+			distanceLeft = parseInt($('#'+idname).css('left')) - 30;
+			$('#'+idname).css('left', distanceLeft +'px');
+			if(distanceLeft < 0) {
+				var pipeClass ='div.pipe'+pipeArray[i];
+			    $(pipeClass).remove();
+			    delete pipeArray[i];
+			    if (canSpawn) {
+			    	spawn();
+			    }
+			    canSpawn = false;
+			}
+		}
+	}
+
 	this.clearBoard = function(){
+		if (gameEvent) {
+			clearInterval(gameEvent);
+		}
 		$('div.bird').remove();
+		var pipeClass;
+		for (var i = 0; i < pipeArray.length; i++) {
+			pipeClass ='div.pipe'+pipeArray[i];
+			$(pipeClass).remove();
+		}
+		pipeNumber = 0;
 	};
 	
 	this.clearGameInfo = function() {
@@ -109,8 +157,6 @@ function Bird() {
 		if (height > 290) {
 			gameBoard.clearBoard();
 			gameBoard.showLoseMessage();
-			clearInterval(increaseScore);
-			clearInterval(drop);
 		}
 		$('#bird').css('top', height+'px');
 	}

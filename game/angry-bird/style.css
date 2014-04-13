@@ -56,16 +56,18 @@
 	color:#E01B6A;
 }
 
-#pipeBottom {
+#pipeTop {
 	position:absolute;
 	top:300px;
 	height: 100px;
+	width: 78px;
 	left: 322px;
 }
 
-#pipeTop {
+#pipeBottom {
 	position:absolute;
 	top:0px;
 	height: 100px;
 	left: 322px;
+	width: 78px;
 }
