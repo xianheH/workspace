@@ -1,5 +1,5 @@
 This is my personal website project using angularjs.
-My first project will be a League of Legend team builder website
+My first project will be a video game playground website
 
 to run this project:
 
