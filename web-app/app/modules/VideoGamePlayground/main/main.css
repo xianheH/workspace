@@ -1,0 +1,13 @@
+.container {
+	width: 100%;
+	max-width: 100%;
+}
+
+.navbar {
+	margin-top: -20px;
+}
+
+.floated_img
+{
+    float: left;
+}
